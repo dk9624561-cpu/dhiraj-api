@@ -50,14 +50,16 @@ studymate-api-vercel/
 
 ## 🛠️ Deploy to Vercel (1-Click)
 
-1. Push this folder to a GitHub repository (e.g. `studymate-api`).
-2. Go to [Vercel Dashboard](https://vercel.com) and click **"Add New Project"**.
-3. Import your repository.
-4. (Optional) Set Environment Variables:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/dk9624561-cpu/dhiraj-api)
+
+1. Click the button above or open [Vercel Dashboard](https://vercel.com).
+2. Click **"Add New Project"** ➔ Import `dk9624561-cpu/dhiraj-api`.
+3. (Optional) Set Environment Variables:
    - `KGS_PHONE` = `7544898925`
    - `KGS_PASSWORD` = `75448989`
    - `KGS_TOKEN` = `147419804|EOm8dRWhsJkHRS4Oatok5NBYIRwug62TpTx2DOIS14fefc33`
-5. Click **Deploy**.
+4. Click **Deploy**.
+
 
 ---
 
