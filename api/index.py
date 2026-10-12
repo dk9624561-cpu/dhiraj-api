@@ -7,6 +7,22 @@ from flask import Flask, jsonify, request, render_template_string
 
 app = Flask(__name__)
 
+class VercelPathFixMiddleware:
+    def __init__(self, wsgi_app):
+        self.wsgi_app = wsgi_app
+
+    def __call__(self, environ, start_response):
+        query = environ.get('QUERY_STRING', '')
+        for param in query.split('&'):
+            if param.startswith('__path__='):
+                path_val = param.split('=', 1)[1]
+                environ['PATH_INFO'] = '/' + path_val.lstrip('/')
+                break
+        return self.wsgi_app(environ, start_response)
+
+app.wsgi_app = VercelPathFixMiddleware(app.wsgi_app)
+
+
 # Common browser request headers
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
