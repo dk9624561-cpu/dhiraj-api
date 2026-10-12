@@ -5,6 +5,8 @@ import requests
 from requests.adapters import HTTPAdapter
 from flask import Flask, jsonify, request, render_template_string
 
+from urllib.parse import unquote
+
 app = Flask(__name__)
 
 class VercelPathFixMiddleware:
@@ -15,12 +17,13 @@ class VercelPathFixMiddleware:
         query = environ.get('QUERY_STRING', '')
         for param in query.split('&'):
             if param.startswith('__path__='):
-                path_val = param.split('=', 1)[1]
+                path_val = unquote(param.split('=', 1)[1])
                 environ['PATH_INFO'] = '/' + path_val.lstrip('/')
                 break
         return self.wsgi_app(environ, start_response)
 
 app.wsgi_app = VercelPathFixMiddleware(app.wsgi_app)
+
 
 
 # Common browser request headers
