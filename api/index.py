@@ -115,6 +115,17 @@ def add_cors_headers(response):
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
     return response
 
+@app.errorhandler(404)
+def handle_404(e):
+    return jsonify({
+        "error": "Not Found",
+        "path": request.path,
+        "environ_path_info": request.environ.get("PATH_INFO"),
+        "x_matched_path": request.headers.get("x-matched-path"),
+        "x_forwarded_url": request.headers.get("x-forwarded-url")
+    }), 404
+
+
 LANDING_PAGE_HTML = """
 <!DOCTYPE html>
 <html lang="en">
