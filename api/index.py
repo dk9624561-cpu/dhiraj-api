@@ -355,10 +355,14 @@ def get_classroom(course_id):
         if res.status_code == 200:
             data = res.json()
             if data and data.get("classroom"):
+                for item in data.get("classroom", []):
+                    if not item.get("title"):
+                        item["title"] = item.get("name", "")
                 _MEM_CACHE[cache_key] = data
                 return jsonify(data)
     except Exception as e:
         print(f"StudyMate classroom error for course {course_id}: {e}")
+
 
     # Tier 2: KGS Live Course topics
     try:
